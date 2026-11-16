@@ -5,9 +5,11 @@
 
 
 		<!-- Preloader-->
+		 
 		<div class="page-loader">
 			<div class="loader"></div>
 		</div>
+          
 		<!-- Preloader end-->
 
 		<!-- Header-->
@@ -546,18 +548,25 @@
 					while($last_posts->have_posts()):
 
 						$last_posts->the_post();
+
+						if ( has_post_thumbnail() ) {
+							$img_url = get_the_post_thumbnail_url();
+						} else {
+							$img_url = get_template_directory_uri() . '/assets/images/images.jpg';
+						}
 			?>
 
 						<div class="col-md-4 post-item">
 
 							<!-- Post-->
 							<article class="post">
-                                      <!-- Paara ver bien las fotos de cada post -->
+
+								<!-- Para ver bien las fotos de cada post -->
 								<div class="post-preview">
-	                            <a href="<?php the_permalink(); ?>">
-		                        <?php the_post_thumbnail(); ?>
-	                                 </a>
-                                    </div>
+									<a href="<?php the_permalink(); ?>">
+										<img src="<?php echo $img_url; ?>" alt="">
+									</a>
+								</div>
 
 								<div class="post-wrapper">
 
@@ -587,8 +596,11 @@
 			<!--Termina bucle-->
 			<?php
 					endwhile;
+
 				else:
+
 					echo "No posts published yet...";
+
 				endif;
 			?>
 
